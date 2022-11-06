@@ -93,7 +93,7 @@ colorama = "*"
 [[package]]
 category = "main"
 description = "Cross-platform colored terminal text."
-marker = "platform_system == \"Windows\""
+marker = "platform_system == \"Windows\" or sys_platform == \"win32\""
 name = "colorama"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
@@ -142,6 +142,14 @@ version = "3.4"
 
 [[package]]
 category = "main"
+description = "iniconfig: brain-dead simple config-ini parsing"
+name = "iniconfig"
+optional = false
+python-versions = "*"
+version = "1.1.1"
+
+[[package]]
+category = "main"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
 optional = false
@@ -169,6 +177,17 @@ attrs = ">=19.2.0"
 
 [[package]]
 category = "main"
+description = "Core utilities for Python packages"
+name = "packaging"
+optional = false
+python-versions = ">=3.6"
+version = "21.3"
+
+[package.dependencies]
+pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
+
+[[package]]
+category = "main"
 description = "Utility library for gitignore style pattern matching of file paths."
 name = "pathspec"
 optional = false
@@ -186,6 +205,18 @@ version = "2.5.2"
 [package.extras]
 docs = ["furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-autodoc-typehints (>=1.12)", "sphinx (>=4)"]
 test = ["appdirs (1.4.4)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)", "pytest (>=6)"]
+
+[[package]]
+category = "main"
+description = "plugin and hook calling mechanisms for python"
+name = "pluggy"
+optional = false
+python-versions = ">=3.6"
+version = "1.0.0"
+
+[package.extras]
+dev = ["tox", "pre-commit"]
+testing = ["pytest-benchmark", "pytest"]
 
 [[package]]
 category = "main"
@@ -214,11 +245,40 @@ version = "2.5.0"
 
 [[package]]
 category = "main"
-description = "A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information."
-name = "pysocks"
+description = "pyparsing module - Classes and methods to define and execute parsing grammars"
+name = "pyparsing"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.7.1"
+python-versions = ">=3.6.8"
+version = "3.0.9"
+
+[package.extras]
+diagrams = ["railroad-diagrams", "jinja2"]
+
+[[package]]
+category = "main"
+description = "pytest: simple powerful testing with Python"
+name = "pytest"
+optional = false
+python-versions = ">=3.7"
+version = "7.2.0"
+
+[package.dependencies]
+attrs = ">=19.2.0"
+colorama = "*"
+iniconfig = "*"
+packaging = "*"
+pluggy = ">=0.12,<2.0"
+
+[package.dependencies.exceptiongroup]
+python = "<3.11"
+version = ">=1.0.0rc8"
+
+[package.dependencies.tomli]
+python = "<3.11"
+version = ">=1.0.0"
+
+[package.extras]
+testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
 category = "main"
@@ -244,7 +304,7 @@ description = ""
 name = "selenium"
 optional = false
 python-versions = "~=3.7"
-version = "4.5.0"
+version = "4.6.0"
 
 [package.dependencies]
 certifi = ">=2021.10.8"
@@ -274,7 +334,7 @@ version = "2.4.0"
 [[package]]
 category = "main"
 description = "A lil' TOML parser"
-marker = "python_full_version < \"3.11.0a7\""
+marker = "python_full_version < \"3.11.0a7\" or python_version < \"3.11\""
 name = "tomli"
 optional = false
 python-versions = ">=3.7"
@@ -331,11 +391,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <4"
 version = "1.26.12"
 
-[package.dependencies]
-[package.dependencies.PySocks]
-optional = true
-version = ">=1.5.6,<1.5.7 || >1.5.7,<2.0"
-
 [package.extras]
 brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
 secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "urllib3-secure-extra", "ipaddress"]
@@ -353,7 +408,7 @@ version = "1.2.0"
 h11 = ">=0.9.0,<1"
 
 [metadata]
-content-hash = "e317f538b3a3fe91f9776d8e4d32e59deed6dc213b540d0a3ed6d32c1f37fb25"
+content-hash = "07dd18793061b9039e807dba4e72062efa7f38ece3d01cff73bb6e967cac0c66"
 lock-version = "1.0"
 python-versions = "^3.9"
 
@@ -447,18 +502,22 @@ idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
     {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
+iniconfig = []
 mccabe = []
 mypy-extensions = []
 outcome = []
+packaging = []
 pathspec = []
 platformdirs = []
+pluggy = []
 pycodestyle = []
 pycparser = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
 ]
 pyflakes = []
-pysocks = []
+pyparsing = []
+pytest = []
 requests = [
     {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
     {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
